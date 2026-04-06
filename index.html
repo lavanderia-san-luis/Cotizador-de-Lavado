@@ -1,233 +1,539 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LavaPlus SV - Estimador de Precios</title>
-<style>
-*{box-sizing:border-box;margin:0;padding:0;}
-:root{
-  --brand:#0d9cb5;
-  --brand-dark:#0a7a8f;
-  --brand-light:#e0f5f9;
-  --brand-mid:#5dc8db;
-  --white:#ffffff;
-}
-body{font-family:'Segoe UI',Arial,sans-serif;background:#f4fbfd;color:#1a2e35;}
+  <title>Lavandería San Luis - Estimador de Precios</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-.site-header{background:var(--white);border-bottom:1px solid #d0edf3;padding:18px 24px;display:flex;align-items:center;gap:14px;}
-.logo-icon{width:44px;height:44px;}
-.logo-text{display:flex;flex-direction:column;}
-.logo-name{font-size:20px;font-weight:700;color:var(--brand-dark);letter-spacing:-0.3px;}
-.logo-tag{font-size:11px;color:var(--brand);font-weight:500;letter-spacing:0.02em;}
+    :root {
+      --brand: #0d9cb5;
+      --brand-dark: #0a7a8f;
+      --brand-light: #e0f5f9;
+      --brand-mid: #5dc8db;
+      --white: #ffffff;
+    }
 
-.hero{background:var(--brand);padding:36px 24px 32px;text-align:center;}
-.hero h1{font-size:24px;font-weight:700;color:var(--white);margin-bottom:8px;}
-.hero p{font-size:14px;color:rgba(255,255,255,0.88);max-width:380px;margin:0 auto;line-height:1.6;}
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      background: #f4fbfd;
+      color: #1a2e35;
+    }
 
-.page{width:100%;max-width:520px;margin:0 auto;padding:24px 16px 48px;display:grid;grid-template-columns:1fr;gap:16px;}
+    .site-header {
+      background: var(--white);
+      border-bottom: 1px solid #d0edf3;
+      padding: 18px 24px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
 
-.estimate-banner{background:var(--brand-light);border:1px solid #a8dde8;border-radius:10px;padding:12px 16px;font-size:13px;color:#0a5f6e;margin-bottom:16px;line-height:1.6;}
-.notice-banner{background:#fff8e1;border:1px solid #ffe082;border-radius:10px;padding:12px 16px;font-size:12px;color:#7a5800;margin-bottom:24px;line-height:1.6;}
-.notice-banner strong{color:#5a4000;}
+    .logo-icon {
+      width: 44px;
+      height: 44px;
+    }
 
-.loads{display:flex;flex-direction:column;gap:12px;margin-bottom:16px;}
-.load-card{background:var(--white);border:1px solid #c8e8ef;border-radius:14px;padding:16px 18px;}
-.load-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
-.load-title{font-size:14px;font-weight:600;color:var(--brand-dark);}
-.del-btn{background:none;border:none;cursor:pointer;color:#9bbec5;font-size:20px;line-height:1;padding:0;}
-.del-btn:hover{color:#e05555;}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
-.field{display:flex;flex-direction:column;gap:5px;}
-.field label{font-size:12px;font-weight:500;color:#4a7a85;}
-.field select,.field input{padding:9px 11px;border-radius:8px;border:1px solid #b8dde5;background:var(--white);color:#1a2e35;font-size:14px;font-family:inherit;width:100%;outline:none;}
-.field select:focus,.field input:focus{border-color:var(--brand);box-shadow:0 0 0 3px rgba(13,156,181,0.12);}
-.field input:disabled{background:#f4fbfd;color:#8aacb2;border-color:#d5edf2;}
-.load-estimate{margin-top:12px;padding-top:12px;border-top:1px solid #e0f2f6;display:flex;justify-content:space-between;align-items:center;}
-.est-label{font-size:12px;color:#7aacb5;}
-.est-val{font-size:14px;font-weight:600;color:var(--brand-dark);}
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+    }
 
-.add-btn{width:100%;padding:13px;border-radius:10px;border:2px dashed #a8dde8;background:transparent;color:var(--brand);font-size:14px;font-weight:500;font-family:inherit;cursor:pointer;margin-bottom:24px;transition:background .15s;}
-.add-btn:hover{background:var(--brand-light);}
+    .logo-name {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--brand-dark);
+      letter-spacing: -0.3px;
+    }
 
-.summary{background:var(--white);border:1px solid #c8e8ef;border-radius:14px;padding:18px 20px;}
-.sum-title{font-size:13px;font-weight:600;color:var(--brand-dark);margin-bottom:12px;text-transform:uppercase;letter-spacing:.05em;}
-.sum-row{display:flex;justify-content:space-between;font-size:13px;color:#4a7a85;padding:5px 0;}
-.sum-divider{border:none;border-top:1px solid #e0f2f6;margin:10px 0;}
-.sum-total-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;}
-.sum-total-label{font-size:16px;font-weight:600;color:#1a2e35;}
-.sum-total-val{font-size:22px;font-weight:700;color:var(--brand);}
-.min-badge{display:inline-block;background:var(--brand-light);color:var(--brand-dark);font-size:11px;padding:2px 9px;border-radius:20px;margin-left:8px;vertical-align:middle;font-weight:500;}
-.sum-disclaimer{font-size:11px;color:#8aacb2;margin-top:12px;line-height:1.6;text-align:center;}
+    .logo-tag {
+      font-size: 11px;
+      color: var(--brand);
+      font-weight: 500;
+      letter-spacing: 0.02em;
+    }
 
-.empty{display:flex;flex-direction:column;align-items:center;text-align:center;padding:36px 16px;color:#8aacb2;font-size:14px;border:2px dashed #c8e8ef;border-radius:14px;margin-bottom:0;}
-.empty-icon{display:block;width:40px;height:40px;margin-bottom:12px;opacity:.4;}
+    .hero {
+      background: var(--brand);
+      padding: 36px 24px 32px;
+      text-align: center;
+    }
 
-/* Media Queries for Responsiveness */
-@media (min-width: 768px) {
-  .page {
-    max-width: 900px;
-    grid-template-columns: 1fr 340px;
-    align-items: start;
-    padding: 32px 24px;
-    gap: 24px;
-  }
-  .main-content {
-    grid-column: 1 / 2;
-  }
-  .summary-sidebar {
-    grid-column: 2 / 3;
-    position: sticky;
-    top: 24px;
-  }
-  .hero {
-    padding: 48px 24px;
-  }
-  .hero h1 {
-    font-size: 32px;
-  }
-  .hero p {
-    font-size: 16px;
-    max-width: 500px;
-  }
-}
+    .hero h1 {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 8px;
+    }
 
-@media (max-width: 480px) {
-  .field-row {
-    grid-template-columns: 1fr;
-  }
-  .logo-name {
-    font-size: 18px;
-  }
-}
-.group-warning{background:#fff9db;border:1px solid #fcc419;color:#856404;padding:12px;border-radius:10px;margin-bottom:20px;font-size:13px;line-height:1.4;display:block;}
-.group-warning strong{color:#5a4000;}
+    .hero p {
+      font-size: 14px;
+      color: rgba(255, 255, 255, 0.88);
+      max-width: 380px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
 
-/* CRO Flow - CTA Card */
-.cta-card {
-  margin-top: 16px;
-  background: white;
-  border: 2px solid var(--brand-light);
-  border-radius: 14px;
-  padding: 24px 20px;
-  text-align: center;
-  box-shadow: 0 12px 30px rgba(13, 156, 181, 0.08);
-  display: none; /* Hidden by default, shown when price > 0 */
-  animation: slideIn 0.4s ease-out;
-}
-@keyframes slideIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-.cta-title {
-  font-size: 15px;
-  font-weight: 600;
-  color: #1a2e35;
-  margin-bottom: 20px;
-  line-height: 1.4;
-}
-.cta-title strong {
-  color: var(--brand);
-}
-.whatsapp-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: #25D366;
-  color: white;
-  text-decoration: none;
-  padding: 16px 20px;
-  border-radius: 12px;
-  font-weight: 700;
-  font-size: 15px;
-  width: 100%;
-  transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
-}
-.whatsapp-btn:hover {
-  background: #128C7E;
-  transform: scale(1.02);
-  box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
-}
-.whatsapp-btn img {
-  width: 24px;
-  height: 24px;
-}
-.sidebar-cta-container {
-  display: flex;
-  flex-direction: column;
-}
+    .page {
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+      padding: 24px 16px 48px;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
 
-.site-footer {
-  text-align: center;
-  padding: 40px 24px;
-  background: white;
-  border-top: 1px solid #e0f2f6;
-  margin-top: 24px;
-}
-.location-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--brand-dark);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 500;
-  transition: opacity 0.2s;
-}
-.location-link:hover {
-  opacity: 0.8;
-}
-.location-link svg {
-  width: 18px;
-  height: 18px;
-  fill: var(--brand);
-}
+    .estimate-banner {
+      background: var(--brand-light);
+      border: 1px solid #a8dde8;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: #0a5f6e;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
 
-.footer-label {
-  font-size: 13px;
-  color: #4a7a85;
-  margin-bottom: 12px;
-}
-.maps-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  background: white;
-  color: var(--brand-dark);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 12px 24px;
-  border-radius: 50px;
-  border: 1px solid #d0edf3;
-  box-shadow: 0 4px 12px rgba(13, 156, 181, 0.08);
-  transition: all 0.2s ease;
-  margin-bottom: 8px;
-}
-.maps-button:hover {
-  background: var(--brand-light);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(13, 156, 181, 0.12);
-  color: var(--brand);
-}
-.maps-button svg {
-  width: 20px;
-  height: 20px;
-  fill: var(--brand);
-}
-.footer-address {
-  font-size: 12px;
-  color: #8aacb2;
-  margin-top: 4px;
-}
+    .notice-banner {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 10px;
+      padding: 12px 16px;
+      font-size: 12px;
+      color: #7a5800;
+      margin-bottom: 24px;
+      line-height: 1.6;
+    }
 
-</style>
+    .notice-banner strong {
+      color: #5a4000;
+    }
+
+    .loads {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .load-card {
+      background: var(--white);
+      border: 1px solid #c8e8ef;
+      border-radius: 14px;
+      padding: 16px 18px;
+    }
+
+    .load-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .load-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brand-dark);
+    }
+
+    .del-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: #9bbec5;
+      font-size: 20px;
+      line-height: 1;
+      padding: 0;
+    }
+
+    .del-btn:hover {
+      color: #e05555;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .field label {
+      font-size: 12px;
+      font-weight: 500;
+      color: #4a7a85;
+    }
+
+    .field select,
+    .field input {
+      padding: 9px 11px;
+      border-radius: 8px;
+      border: 1px solid #b8dde5;
+      background: var(--white);
+      color: #1a2e35;
+      font-size: 14px;
+      font-family: inherit;
+      width: 100%;
+      outline: none;
+    }
+
+    .field select:focus,
+    .field input:focus {
+      border-color: var(--brand);
+      box-shadow: 0 0 0 3px rgba(13, 156, 181, 0.12);
+    }
+
+    .field input:disabled {
+      background: #f4fbfd;
+      color: #8aacb2;
+      border-color: #d5edf2;
+    }
+
+    .load-estimate {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid #e0f2f6;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .est-label {
+      font-size: 12px;
+      color: #7aacb5;
+    }
+
+    .est-val {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--brand-dark);
+    }
+
+    .add-btn {
+      width: 100%;
+      padding: 13px;
+      border-radius: 10px;
+      border: 2px dashed #a8dde8;
+      background: transparent;
+      color: var(--brand);
+      font-size: 14px;
+      font-weight: 500;
+      font-family: inherit;
+      cursor: pointer;
+      margin-bottom: 24px;
+      transition: background .15s;
+    }
+
+    .add-btn:hover {
+      background: var(--brand-light);
+    }
+
+    .summary {
+      background: var(--white);
+      border: 1px solid #c8e8ef;
+      border-radius: 14px;
+      padding: 18px 20px;
+    }
+
+    .sum-title {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand-dark);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+
+    .sum-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      color: #4a7a85;
+      padding: 5px 0;
+    }
+
+    .sum-divider {
+      border: none;
+      border-top: 1px solid #e0f2f6;
+      margin: 10px 0;
+    }
+
+    .sum-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 4px 0;
+    }
+
+    .sum-total-label {
+      font-size: 16px;
+      font-weight: 600;
+      color: #1a2e35;
+    }
+
+    .sum-total-val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--brand);
+    }
+
+    .min-badge {
+      display: inline-block;
+      background: var(--brand-light);
+      color: var(--brand-dark);
+      font-size: 11px;
+      padding: 2px 9px;
+      border-radius: 20px;
+      margin-left: 8px;
+      vertical-align: middle;
+      font-weight: 500;
+    }
+
+    .sum-disclaimer {
+      font-size: 11px;
+      color: #8aacb2;
+      margin-top: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 36px 16px;
+      color: #8aacb2;
+      font-size: 14px;
+      border: 2px dashed #c8e8ef;
+      border-radius: 14px;
+      margin-bottom: 0;
+    }
+
+    .empty-icon {
+      display: block;
+      width: 40px;
+      height: 40px;
+      margin-bottom: 12px;
+      opacity: .4;
+    }
+
+    /* Media Queries for Responsiveness */
+    @media (min-width: 768px) {
+      .page {
+        max-width: 900px;
+        grid-template-columns: 1fr 340px;
+        align-items: start;
+        padding: 32px 24px;
+        gap: 24px;
+      }
+
+      .main-content {
+        grid-column: 1 / 2;
+      }
+
+      .summary-sidebar {
+        grid-column: 2 / 3;
+        position: sticky;
+        top: 24px;
+      }
+
+      .hero {
+        padding: 48px 24px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .hero p {
+        font-size: 16px;
+        max-width: 500px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .field-row {
+        grid-template-columns: 1fr;
+      }
+
+      .logo-name {
+        font-size: 18px;
+      }
+    }
+
+    .group-warning {
+      background: #fff9db;
+      border: 1px solid #fcc419;
+      color: #856404;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      font-size: 13px;
+      line-height: 1.4;
+      display: block;
+    }
+
+    .group-warning strong {
+      color: #5a4000;
+    }
+
+    /* CRO Flow - CTA Card */
+    .cta-card {
+      margin-top: 16px;
+      background: white;
+      border: 2px solid var(--brand-light);
+      border-radius: 14px;
+      padding: 24px 20px;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(13, 156, 181, 0.08);
+      display: none;
+      /* Hidden by default, shown when price > 0 */
+      animation: slideIn 0.4s ease-out;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .cta-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: #1a2e35;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .cta-title strong {
+      color: var(--brand);
+    }
+
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 16px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      font-size: 15px;
+      width: 100%;
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+    }
+
+    .whatsapp-btn:hover {
+      background: #128C7E;
+      transform: scale(1.02);
+      box-shadow: 0 8px 25px rgba(37, 211, 102, 0.35);
+    }
+
+    .whatsapp-btn img {
+      width: 24px;
+      height: 24px;
+    }
+
+    .sidebar-cta-container {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .site-footer {
+      text-align: center;
+      padding: 40px 24px;
+      background: white;
+      border-top: 1px solid #e0f2f6;
+      margin-top: 24px;
+    }
+
+    .location-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--brand-dark);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+    .location-link:hover {
+      opacity: 0.8;
+    }
+
+    .location-link svg {
+      width: 18px;
+      height: 18px;
+      fill: var(--brand);
+    }
+
+    .footer-label {
+      font-size: 13px;
+      color: #4a7a85;
+      margin-bottom: 12px;
+    }
+
+    .maps-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: white;
+      color: var(--brand-dark);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 1px solid #d0edf3;
+      box-shadow: 0 4px 12px rgba(13, 156, 181, 0.08);
+      transition: all 0.2s ease;
+      margin-bottom: 8px;
+    }
+
+    .maps-button:hover {
+      background: var(--brand-light);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(13, 156, 181, 0.12);
+      color: var(--brand);
+    }
+
+    .maps-button svg {
+      width: 20px;
+      height: 20px;
+      fill: var(--brand);
+    }
+
+    .footer-address {
+      font-size: 12px;
+      color: #8aacb2;
+      margin-top: 4px;
+    }
+  </style>
 </head>
 
 <div class="site-header">
   <img src="logo.png" alt="LavaPlus Logo" class="logo-icon">
   <div class="logo-text">
-    <span class="logo-name">LavaPlus SV</span>
+    <span class="logo-name">Lavandería San Luis</span>
     <span class="logo-tag">El Aliado En Tu Limpieza</span>
   </div>
 </div>
@@ -240,15 +546,21 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4fbfd;color:#1a2e35;}
 <div class="page">
   <div class="main-content">
     <div class="estimate-banner">
-      Este formulario genera un <strong>estimado solamente</strong>. El precio real se calcula al pesar tu ropa en el local y puede variar.
+      Este formulario genera un <strong>estimado solamente</strong>. El precio real se calcula al pesar tu ropa en el
+      local y puede variar.
     </div>
     <div class="notice-banner">
-      <strong>Se cobran aparte:</strong> toallas, edredones, cobijas y ropa para dry clean. Consulta directamente en el local.
+      <strong>Se cobran aparte:</strong> toallas, edredones, cobijas y ropa para dry clean. Consulta directamente en el
+      local.
     </div>
 
     <div class="loads" id="loads-container">
       <div class="empty" id="empty-state">
-        <svg class="empty-icon" viewBox="0 0 40 40" fill="none"><rect x="8" y="12" width="24" height="20" rx="4" stroke="#0d9cb5" stroke-width="1.5"/><path d="M14 12V10a6 6 0 0112 0v2" stroke="#0d9cb5" stroke-width="1.5" stroke-linecap="round"/><circle cx="20" cy="22" r="2.5" fill="#0d9cb5" opacity=".4"/></svg>
+        <svg class="empty-icon" viewBox="0 0 40 40" fill="none">
+          <rect x="8" y="12" width="24" height="20" rx="4" stroke="#0d9cb5" stroke-width="1.5" />
+          <path d="M14 12V10a6 6 0 0112 0v2" stroke="#0d9cb5" stroke-width="1.5" stroke-linecap="round" />
+          <circle cx="20" cy="22" r="2.5" fill="#0d9cb5" opacity=".4" />
+        </svg>
         Aún no has agregado cargas.<br>Presiona el botón para comenzar.
       </div>
     </div>
@@ -263,10 +575,12 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4fbfd;color:#1a2e35;}
       <div class="sum-row"><span>Peso estimado total</span><span id="sum-weight">0.00 lb</span></div>
       <hr class="sum-divider">
       <div class="sum-total-row">
-        <span class="sum-total-label">Estimado <span class="min-badge" id="min-badge" style="display:none">mínimo aplicado</span></span>
+        <span class="sum-total-label">Estimado <span class="min-badge" id="min-badge" style="display:none">mínimo
+            aplicado</span></span>
         <span class="sum-total-val" id="sum-total">$0.00</span>
       </div>
-      <p class="sum-disclaimer">Basado en pesos promedio por prenda · $1.00/lb · mínimo $5.00<br>Menos de 12 prendas se cobran a $1.00 c/u individualmente.<br>El precio final se confirma en el local al momento de pesar.</p>
+      <p class="sum-disclaimer">Basado en pesos promedio por prenda · $1.00/lb · mínimo $5.00<br>Menos de 12 prendas se
+        cobran a $1.00 c/u individualmente.<br>El precio final se confirma en el local al momento de pesar.</p>
     </div>
     <!-- CRO Flow - WhatsApp CTA -->
     <div class="cta-card" id="cta-card">
@@ -282,7 +596,10 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4fbfd;color:#1a2e35;}
 <footer class="site-footer">
   <p class="footer-label">Encuentranos en</p>
   <a href="https://maps.app.goo.gl/ggTydJ5qyQ2CP4zy9" target="_blank" class="maps-button">
-    <svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+    <svg viewBox="0 0 24 24">
+      <path
+        d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+    </svg>
     Abrir en Google Maps
   </a>
   <p class="footer-address">Blvr. Universitario, San Salvador</p>
@@ -290,171 +607,171 @@ body{font-family:'Segoe UI',Arial,sans-serif;background:#f4fbfd;color:#1a2e35;}
 
 
 <script>
-const RATE=1.00,MIN=5.00,IND_PRICE=1.00;
-const TYPES=[
-  {id:'color',    label:'Ropa de color',      lbPerPiece:0.40,unit:'prendas',group:'REGULAR',fixed:null},
-  {id:'white',    label:'Ropa blanca',         lbPerPiece:0.40,unit:'prendas',group:'WHITE',  fixed:null},
-  {id:'jeans',    label:'Jeans',               lbPerPiece:1.00,unit:'piezas', group:'REGULAR',fixed:null},
-  {id:'underwear',label:'Ropa interior',       lbPerPiece:0.25,unit:'piezas', group:'REGULAR',fixed:null},
-  {id:'socks',    label:'Pares de calcetines', lbPerPiece:0.25,unit:'pares',  group:'REGULAR',fixed:null},
-  {id:'sneakers', label:'Zapatos tenis',       lbPerPiece:null,unit:'pares',  group:'FIXED',  fixed:4.50},
-  {id:'suede',    label:'Zapatos de gamuza',   lbPerPiece:null,unit:'pares',  group:'FIXED',  fixed:6.50},
-];
-let loads=[],counter=0;
-function T(id){return TYPES.find(t=>t.id===id);}
-function calc(type,qty){
-  const t=T(type);
-  if(!t||qty===null||qty<=0)return{lb:0,cost:0};
-  if(t.fixed!==null)return{lb:0,cost:t.fixed*qty};
-  return{lb:t.lbPerPiece*qty,cost:t.lbPerPiece*qty*RATE};
-}
-function ph(t){
-  if(!t)return'Ej: 10';
-  if(t.fixed!==null)return'Ej: 1';
-  if(t.id==='jeans')return'Ej: 3';
-  if(t.unit==='prendas')return'Ej: 15';
-  if(t.unit==='pares')return'Ej: 5';
-  return'Ej: 8';
-}
-function render(){
-  const c=document.getElementById('loads-container');
-  document.getElementById('empty-state').style.display=loads.length===0?'flex':'none';
-  c.querySelectorAll('.load-card, .group-warning').forEach(el=>el.remove());
-  
-  const renderGroup = (group) => {
-    const gl=loads.filter(l=>T(l.type).group===group);
-    if(gl.length===0)return;
-    gl.forEach(load=>{
-      const t=T(load.type);
-      const opts=TYPES.map(tp=>`<option value="${tp.id}"${tp.id===load.type?' selected':''}>${tp.label}</option>`).join('');
-      const card=document.createElement('div');
-      card.className='load-card';
-      card.dataset.id=load.id;
-      card.innerHTML=`
+  const RATE = 1.00, MIN = 5.00, IND_PRICE = 1.00;
+  const TYPES = [
+    { id: 'color', label: 'Ropa de color', lbPerPiece: 0.40, unit: 'prendas', group: 'REGULAR', fixed: null },
+    { id: 'white', label: 'Ropa blanca', lbPerPiece: 0.40, unit: 'prendas', group: 'WHITE', fixed: null },
+    { id: 'jeans', label: 'Jeans', lbPerPiece: 1.00, unit: 'piezas', group: 'REGULAR', fixed: null },
+    { id: 'underwear', label: 'Ropa interior', lbPerPiece: 0.25, unit: 'piezas', group: 'REGULAR', fixed: null },
+    { id: 'socks', label: 'Pares de calcetines', lbPerPiece: 0.25, unit: 'pares', group: 'REGULAR', fixed: null },
+    { id: 'sneakers', label: 'Zapatos tenis', lbPerPiece: null, unit: 'pares', group: 'FIXED', fixed: 4.50 },
+    { id: 'suede', label: 'Zapatos de gamuza', lbPerPiece: null, unit: 'pares', group: 'FIXED', fixed: 6.50 },
+  ];
+  let loads = [], counter = 0;
+  function T(id) { return TYPES.find(t => t.id === id); }
+  function calc(type, qty) {
+    const t = T(type);
+    if (!t || qty === null || qty <= 0) return { lb: 0, cost: 0 };
+    if (t.fixed !== null) return { lb: 0, cost: t.fixed * qty };
+    return { lb: t.lbPerPiece * qty, cost: t.lbPerPiece * qty * RATE };
+  }
+  function ph(t) {
+    if (!t) return 'Ej: 10';
+    if (t.fixed !== null) return 'Ej: 1';
+    if (t.id === 'jeans') return 'Ej: 3';
+    if (t.unit === 'prendas') return 'Ej: 15';
+    if (t.unit === 'pares') return 'Ej: 5';
+    return 'Ej: 8';
+  }
+  function render() {
+    const c = document.getElementById('loads-container');
+    document.getElementById('empty-state').style.display = loads.length === 0 ? 'flex' : 'none';
+    c.querySelectorAll('.load-card, .group-warning').forEach(el => el.remove());
+
+    const renderGroup = (group) => {
+      const gl = loads.filter(l => T(l.type).group === group);
+      if (gl.length === 0) return;
+      gl.forEach(load => {
+        const t = T(load.type);
+        const opts = TYPES.map(tp => `<option value="${tp.id}"${tp.id === load.type ? ' selected' : ''}>${tp.label}</option>`).join('');
+        const card = document.createElement('div');
+        card.className = 'load-card';
+        card.dataset.id = load.id;
+        card.innerHTML = `
         <div class="load-header">
-          <span class="load-title">${t?t.label:'Carga'}</span>
+          <span class="load-title">${t ? t.label : 'Carga'}</span>
           <button class="del-btn" data-id="${load.id}">×</button>
         </div>
         <div class="field-row">
           <div class="field"><label>Tipo de ropa</label><select data-id="${load.id}" data-field="type">${opts}</select></div>
-          <div class="field"><label>Cantidad (${t?t.unit:'piezas'})</label><input type="number" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="${ph(t)}" value="${load.qty!==null?load.qty:''}" data-id="${load.id}" data-field="qty"></div>
+          <div class="field"><label>Cantidad (${t ? t.unit : 'piezas'})</label><input type="number" min="0" inputmode="numeric" pattern="[0-9]*" placeholder="${ph(t)}" value="${load.qty !== null ? load.qty : ''}" data-id="${load.id}" data-field="qty"></div>
         </div>
         <div class="load-estimate"><span class="est-label"></span><span class="est-val"></span></div>
       `;
-      c.appendChild(card);
+        c.appendChild(card);
+      });
+      if (group !== 'FIXED') {
+        const w = document.createElement('div');
+        w.className = 'group-warning';
+        w.id = `warn-${group}`;
+        w.style.display = 'none';
+        c.appendChild(w);
+      }
+    };
+    renderGroup('REGULAR');
+    renderGroup('WHITE');
+    renderGroup('FIXED');
+    renderLabels();
+    updateSummary();
+    bind();
+  }
+  function bind() {
+    document.querySelectorAll('select[data-field="type"]').forEach(s => { s.onchange = function () { const l = loads.find(l => l.id === parseInt(this.dataset.id)); if (l) { l.type = this.value; l.qty = null; render(); } }; });
+    document.querySelectorAll('input[data-field="qty"]').forEach(inp => { inp.oninput = function () { const l = loads.find(l => l.id === parseInt(this.dataset.id)); if (l) { const v = parseInt(this.value); l.qty = (this.value === '' || isNaN(v) || v < 0) ? null : v; renderLabels(); updateSummary(); } }; });
+    document.querySelectorAll('.del-btn').forEach(b => { b.onclick = function () { loads = loads.filter(l => l.id !== parseInt(this.dataset.id)); render(); }; });
+  }
+  function renderLabels() {
+    const groups = ['REGULAR', 'WHITE'];
+    groups.forEach(g => {
+      const gl = loads.filter(l => T(l.type).group === g);
+      const gQty = gl.reduce((s, l) => s + (l.qty || 0), 0);
+      const w = document.getElementById(`warn-${g}`);
+      if (w) {
+        if (gQty > 0 && gQty < 12) {
+          w.innerHTML = `<strong>Al ser menos de 12 prendas ${g === 'WHITE' ? 'blancas ' : ''}</strong>se cobran individualmente ($1 c/u)`;
+          w.style.display = 'block';
+        } else {
+          w.style.display = 'none';
+        }
+      }
     });
-    if(group!=='FIXED'){
-      const w=document.createElement('div');
-      w.className='group-warning';
-      w.id=`warn-${group}`;
-      w.style.display='none';
-      c.appendChild(w);
-    }
-  };
-  renderGroup('REGULAR');
-  renderGroup('WHITE');
-  renderGroup('FIXED');
-  renderLabels();
-  updateSummary();
-  bind();
-}
-function bind(){
-  document.querySelectorAll('select[data-field="type"]').forEach(s=>{s.onchange=function(){const l=loads.find(l=>l.id===parseInt(this.dataset.id));if(l){l.type=this.value;l.qty=null;render();}};});
-  document.querySelectorAll('input[data-field="qty"]').forEach(inp=>{inp.oninput=function(){const l=loads.find(l=>l.id===parseInt(this.dataset.id));if(l){const v=parseInt(this.value);l.qty=(this.value===''||isNaN(v)||v<0)?null:v;renderLabels();updateSummary();}};});
-  document.querySelectorAll('.del-btn').forEach(b=>{b.onclick=function(){loads=loads.filter(l=>l.id!==parseInt(this.dataset.id));render();};});
-}
-function renderLabels(){
-  const groups=['REGULAR','WHITE'];
-  groups.forEach(g=>{
-    const gl=loads.filter(l=>T(l.type).group===g);
-    const gQty=gl.reduce((s,l)=>s+(l.qty||0),0);
-    const w=document.getElementById(`warn-${g}`);
-    if(w){
-      if(gQty>0 && gQty<12){
-        w.innerHTML=`<strong>Al ser menos de 12 prendas ${g==='WHITE'?'blancas ':''}</strong>se cobran individualmente ($1 c/u)`;
-        w.style.display='block';
-      } else {
-        w.style.display='none';
-      }
-    }
-  });
 
-  loads.forEach(load=>{
-    const card=document.querySelector(`.load-card[data-id="${load.id}"]`);
-    if(!card)return;
-    const t=T(load.type);
-    const{lb,cost}=calc(load.type,load.qty);
-    const isFixed=t&&t.fixed!==null;
-    const hasQty=load.qty!==null&&load.qty!==''&&load.qty>0;
-    const eL=card.querySelector('.est-label');
-    const eV=card.querySelector('.est-val');
-    if(!hasQty){eL.textContent='Ingresa la cantidad para ver el estimado';eV.textContent='—';}
-    else if(isFixed){eL.textContent=`${load.qty} par${load.qty!==1?'es':''} × $${t.fixed.toFixed(2)}`;eV.textContent='aprox. $'+cost.toFixed(2);}
-    else{
-      const group=t?t.group:'';
-      const gl=loads.filter(l=>T(l.type).group===group);
-      const gQty=gl.reduce((s,l)=>s+(l.qty||0),0);
-      if(gQty < 12){
-        eL.textContent=`${load.qty} ${t.unit} × $${IND_PRICE.toFixed(2)}`;
-        eV.textContent='aprox. $'+(load.qty*IND_PRICE).toFixed(2);
-      } else {
-        eL.textContent='aprox. '+lb.toFixed(2)+' lb estimadas';
-        eV.textContent='aprox. $'+cost.toFixed(2);
+    loads.forEach(load => {
+      const card = document.querySelector(`.load-card[data-id="${load.id}"]`);
+      if (!card) return;
+      const t = T(load.type);
+      const { lb, cost } = calc(load.type, load.qty);
+      const isFixed = t && t.fixed !== null;
+      const hasQty = load.qty !== null && load.qty !== '' && load.qty > 0;
+      const eL = card.querySelector('.est-label');
+      const eV = card.querySelector('.est-val');
+      if (!hasQty) { eL.textContent = 'Ingresa la cantidad para ver el estimado'; eV.textContent = '—'; }
+      else if (isFixed) { eL.textContent = `${load.qty} par${load.qty !== 1 ? 'es' : ''} × $${t.fixed.toFixed(2)}`; eV.textContent = 'aprox. $' + cost.toFixed(2); }
+      else {
+        const group = t ? t.group : '';
+        const gl = loads.filter(l => T(l.type).group === group);
+        const gQty = gl.reduce((s, l) => s + (l.qty || 0), 0);
+        if (gQty < 12) {
+          eL.textContent = `${load.qty} ${t.unit} × $${IND_PRICE.toFixed(2)}`;
+          eV.textContent = 'aprox. $' + (load.qty * IND_PRICE).toFixed(2);
+        } else {
+          eL.textContent = 'aprox. ' + lb.toFixed(2) + ' lb estimadas';
+          eV.textContent = 'aprox. $' + cost.toFixed(2);
+        }
       }
-    }
-  });
-}
-function updateSummary(){
-  let totalCost=0,totalWeight=0;
-  const groupData={
-    'WHITE': {qty:0,lb:0},
-    'REGULAR': {qty:0,lb:0},
-    'FIXED': {cost:0}
-  };
-  loads.forEach(l=>{
-    const t=T(l.type);
-    if(t && l.qty > 0){
-      if(t.group==='FIXED'){
-        groupData.FIXED.cost += (t.fixed * l.qty);
-      } else {
-        groupData[t.group].qty += l.qty;
-        groupData[t.group].lb += (t.lbPerPiece * l.qty);
+    });
+  }
+  function updateSummary() {
+    let totalCost = 0, totalWeight = 0;
+    const groupData = {
+      'WHITE': { qty: 0, lb: 0 },
+      'REGULAR': { qty: 0, lb: 0 },
+      'FIXED': { cost: 0 }
+    };
+    loads.forEach(l => {
+      const t = T(l.type);
+      if (t && l.qty > 0) {
+        if (t.group === 'FIXED') {
+          groupData.FIXED.cost += (t.fixed * l.qty);
+        } else {
+          groupData[t.group].qty += l.qty;
+          groupData[t.group].lb += (t.lbPerPiece * l.qty);
+        }
       }
+    });
+
+    // Calculate WHITE
+    if (groupData.WHITE.qty > 0) {
+      if (groupData.WHITE.qty < 12) totalCost += (groupData.WHITE.qty * IND_PRICE);
+      else totalCost += (groupData.WHITE.lb * RATE);
+      totalWeight += groupData.WHITE.lb;
     }
-  });
-  
-  // Calculate WHITE
-  if(groupData.WHITE.qty > 0){
-    if(groupData.WHITE.qty < 12) totalCost += (groupData.WHITE.qty * IND_PRICE);
-    else totalCost += (groupData.WHITE.lb * RATE);
-    totalWeight += groupData.WHITE.lb;
-  }
-  // Calculate REGULAR
-  if(groupData.REGULAR.qty > 0){
-    if(groupData.REGULAR.qty < 12) totalCost += (groupData.REGULAR.qty * IND_PRICE);
-    else totalCost += (groupData.REGULAR.lb * RATE);
-    totalWeight += groupData.REGULAR.lb;
-  }
-  // Add FIXED
-  totalCost += groupData.FIXED.cost;
+    // Calculate REGULAR
+    if (groupData.REGULAR.qty > 0) {
+      if (groupData.REGULAR.qty < 12) totalCost += (groupData.REGULAR.qty * IND_PRICE);
+      else totalCost += (groupData.REGULAR.lb * RATE);
+      totalWeight += groupData.REGULAR.lb;
+    }
+    // Add FIXED
+    totalCost += groupData.FIXED.cost;
 
-  const minApplied=totalCost>0&&totalCost<MIN;
-  const disp=totalCost===0?0:Math.max(totalCost,MIN);
-  document.getElementById('sum-loads').textContent=loads.length;
-  document.getElementById('sum-weight').textContent=totalWeight.toFixed(2)+' lb';
-  document.getElementById('sum-total').textContent=totalCost===0?'$0.00':'aprox. $'+disp.toFixed(2);
-  document.getElementById('min-badge').style.display=minApplied?'inline-block':'none';
-  
-  const cta=document.getElementById('cta-card'),wBtn=document.getElementById('whatsapp-cta');
-  if(totalCost>0){
-    cta.style.display='block';
-    const msg=`¡Hola! Coticé en su página web y me dio un apróximado de $${disp.toFixed(2)}. Me gustaría agendar una recolección a domicilio, por favor.`;
-    wBtn.href=`https://wa.me/50325246129?text=${encodeURIComponent(msg)}`;
-  } else {
-    cta.style.display='none';
-  }
+    const minApplied = totalCost > 0 && totalCost < MIN;
+    const disp = totalCost === 0 ? 0 : Math.max(totalCost, MIN);
+    document.getElementById('sum-loads').textContent = loads.length;
+    document.getElementById('sum-weight').textContent = totalWeight.toFixed(2) + ' lb';
+    document.getElementById('sum-total').textContent = totalCost === 0 ? '$0.00' : 'aprox. $' + disp.toFixed(2);
+    document.getElementById('min-badge').style.display = minApplied ? 'inline-block' : 'none';
 
-}
-document.getElementById('add-btn').onclick=function(){loads.push({id:++counter,type:'color',qty:null});render();};
-render();
+    const cta = document.getElementById('cta-card'), wBtn = document.getElementById('whatsapp-cta');
+    if (totalCost > 0) {
+      cta.style.display = 'block';
+      const msg = `¡Hola! Coticé en su página web y me dio un apróximado de $${disp.toFixed(2)}. Me gustaría agendar una recolección a domicilio, por favor.`;
+      wBtn.href = `https://wa.me/50325246129?text=${encodeURIComponent(msg)}`;
+    } else {
+      cta.style.display = 'none';
+    }
+
+  }
+  document.getElementById('add-btn').onclick = function () { loads.push({ id: ++counter, type: 'color', qty: null }); render(); };
+  render();
 </script>
