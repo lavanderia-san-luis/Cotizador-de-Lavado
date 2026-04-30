@@ -774,4 +774,34 @@
   }
   document.getElementById('add-btn').onclick = function () { loads.push({ id: ++counter, type: 'color', qty: null }); render(); };
   render();
+
+  async function registrarApertura() {
+  try {
+    // 1. Obtener la IP (Usando un servicio externo gratuito)
+    const ipResponse = await fetch('https://api.ipify.org?format=json');
+    const { ip } = await ipResponse.json();
+
+    // 2. Recopilar metadatos del navegador
+    const datos = {
+      ip_address: ip,
+      user_agent: navigator.userAgent,
+      idioma: navigator.language,
+      resolucion_pantalla: `${window.screen.width}x${window.screen.height}`
+    };
+
+    // 3. Guardar en Supabase
+    const { error } = await client
+      .from('registros_apertura')
+      .insert([datos]);
+
+    if (error) throw error;
+    
+    console.log("Apertura registrada exitosamente.");
+  } catch (err) {
+    console.error("Error al registrar apertura:", err);
+  }
+}
+
+// Ejecutar cuando la página esté lista
+document.addEventListener('DOMContentLoaded', registrarApertura);
 </script>
