@@ -775,33 +775,54 @@
   document.getElementById('add-btn').onclick = function () { loads.push({ id: ++counter, type: 'color', qty: null }); render(); };
   render();
 
-  async function registrarApertura() {
-  try {
-    // 1. Obtener la IP (Usando un servicio externo gratuito)
-    const ipResponse = await fetch('https://api.ipify.org?format=json');
-    const { ip } = await ipResponse.json();
+  /**
+ * Registra la apertura de la página capturando IP y metadatos.
+ * Se recomienda llamar a esta función al cargar el DOM.
+ */
+async function registrarApertura() {
+    try {
+        console.log("Iniciando registro de apertura...");
 
-    // 2. Recopilar metadatos del navegador
-    const datos = {
-      ip_address: ip,
-      user_agent: navigator.userAgent,
-      idioma: navigator.language,
-      resolucion_pantalla: `${window.screen.width}x${window.screen.height}`
-    };
+        // 1. Intentar obtener la IP pública (si falla, el proceso continúa)
+        let ip = "Desconocida";
+        try {
+            const ipResponse = await fetch('https://api.ipify.org?format=json', { timeout: 5000 });
+            const ipData = await ipResponse.json();
+            ip = ipData.ip;
+        } catch (ipErr) {
+            console.warn("No se pudo obtener la IP (posible bloqueo), continuando registro...");
+        }
 
-    // 3. Guardar en Supabase
-    const { error } = await client
-      .from('registros_apertura')
-      .insert([datos]);
+        // 2. Recopilar datos del entorno del cliente
+        const datosApertura = {
+            ip_address: ip,
+            user_agent: navigator.userAgent,
+            idioma: navigator.language,
+            resolucion_pantalla: `${window.screen.width}x${window.screen.height}`,
+            fecha_apertura: new Date().toISOString()
+        };
 
-    if (error) throw error;
-    
-    console.log("Apertura registrada exitosamente.");
-  } catch (err) {
-    console.error("Error al registrar apertura:", err);
-  }
+        // 3. Enviar a la tabla en Supabase
+        const { error } = await client
+            .from('registros_apertura')
+            .insert([datosApertura]);
+
+        if (error) {
+            // Si hay error aquí, revisa que la tabla exista y tenga permisos RLS
+            throw error;
+        }
+
+        console.log("✅ Apertura registrada exitosamente:", ip);
+
+    } catch (err) {
+        console.error("❌ Error crítico al registrar apertura:", err.message);
+    }
 }
 
-// Ejecutar cuando la página esté lista
-document.addEventListener('DOMContentLoaded', registrarApertura);
+// Ejecutar automáticamente cuando la página esté lista
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', registrarApertura);
+} else {
+    registrarApertura();
+}
 </script>
