@@ -608,6 +608,12 @@
 
 
 <script>
+    const SUPABASE_URL = "https://orjtfutchnnzktoonqda.supabase.co";
+  const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9yanRmdXRjaG5uemt0b29ucWRhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzYzNjUxNDEsImV4cCI6MjA5MTk0MTE0MX0.X-wQuPqS80Qy1xUU9v4jfbHWUIXMxLCFKbOS_VOym6g";
+  
+
+  const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+  
   const RATE = 1.00, MIN = 5.00, IND_PRICE = 1.00;
   const TYPES = [
     { id: 'color', label: 'Ropa de color', lbPerPiece: 0.40, unit: 'prendas', group: 'REGULAR', fixed: null },
