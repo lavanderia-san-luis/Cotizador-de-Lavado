@@ -806,6 +806,7 @@ async function registrarApertura() {
             user_agent: navigator.userAgent,
             idioma: navigator.language,
             resolucion_pantalla: `${window.screen.width}x${window.screen.height}`,
+            pagina_origen: window.location.pathname,
             fecha_apertura: new Date().toISOString()
         };
 
@@ -819,10 +820,10 @@ async function registrarApertura() {
             throw error;
         }
 
-        console.log("✅ Apertura registrada exitosamente:", ip);
+        console.log("ip", ip);
 
     } catch (err) {
-        console.error("❌ Error crítico al registrar apertura:", err.message);
+        console.error("error", err.message);
     }
 }
 
